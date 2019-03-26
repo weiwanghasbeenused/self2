@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>Self-Portraiting</title>
+		<meta charset="utf-8">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+		<link href="style/selfPortrait.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+		<script src="scripts/library/jquery-3.3.1.js"></script>
+		<script src="scripts/library/clmtrackr/clmtrackr.js"></script>
+		<script src="scripts/library/clmtrackr/utils.js"></script>
+		<script src="scripts/library/p5.js"></script>
+		<script src="scripts/library/p5.dom.js"></script>
+		<script src="scripts/library/p5.sound.js"></script>
+		<script src="scripts/library/p5.speech.js"></script>
+		<script src="scripts/library/p5.speech.js"></script>
+		<script src="scripts/library/jquery.jkey.min.js"></script>
+		<script src="scripts/library/html2canvas.min.js"></script>
+		<div id = "title"><h3>Self-Portraiting</h3></div>
+		<div id = "warning_focus" class = "warning">
+			<h2>Please locate your face at the center.</br>Taking off glasses will be helpful.</br>
+			&darr;&darr;&darr;</br></h2>
+			<div id = "redFrame"></div>
+		</div>
+		<div id = "prompt"><h3></h3></div>
+		<div id = "sign_start" class = "sign"><h2>Start recording</h2></div>
+		<div id = "sign_pause" class = "sign"><h2>Pause recording</h2></div>
+		<div id = "warning_reset" class = "warning">
+			<h2>The text on the screen will be cleaned. </br>Are you sure you want to restart recording? </br></br>***</br>If you really want to reset it, press "restart" again. Otherwise, turn off and on the "start/pause" switch once.
+			</h2>
+		</div>
+		<div id = "warning_printing" class = "warning">
+			<h2>Are you ready to save the portrait?</br></br>***</br>If you do, press "print" again. Otherwise, turn off and on the "start/pause" switch once.
+			</h2>
+		</div>
+		<div id = "warning_ending" class = "warning">
+			<h2>The text has reached maximum capacity.</br></br>***</br>
+			Please print or reset.
+			</h2>
+		</div>
+		<div id = "container">
+			
+			<div id = "cover"></div>
+			<video id="videoel" class = "full" preload="auto" loop playsinline autoplay></video>
+			<canvas id="canv" class = "full"></canvas>
+			<div id = "box0" class = "resultBox"><div class = "sizingBox"><h1 class = 'size0'></h1></div></div>
+		</div>
+
+		<div id = "saveImg">
+			<img id = "img1">
+		</div>
+
+		<canvas id = 'testCanvas'></canvas>
+
+		<script src="scripts/selfPortrait_var.js"></script>
+		<script src="scripts/selfPortrait_face.js"></script>
+		<script src="scripts/selfPortrait_movingBox_2.js"></script>
+		<script src="scripts/selfPortrait_resizingBox_2.js"></script>
+		<script src="scripts/selfPortrait_speech.js"></script>
+		<script src="scripts/selfPortrait_prompting.js"></script>
+	</body>
+</html>
