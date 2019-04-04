@@ -28,7 +28,7 @@ var status = 0;
 
 var cv = 0;
 
-
+var printText = "";
 
 var prompts = ["Tell me"," who do you want to be,"," a lie,"," a secret,"," or anything you want to.","Press Right Arrow to start."];
 $("#prompt h3").append(prompts[0]);

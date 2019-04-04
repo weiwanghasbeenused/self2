@@ -84,6 +84,10 @@ function printing() {
 		status = 4;
 	}else if(status == 4){
 			console.log("shot!");
+			savedText =[];
+			for(i = 0; i<savedText.length;i++){
+				printText+=savedText[i];
+			}
 			html2canvas(document.getElementById('container')).then(function(canvas) {
 	    	$("#saveImg").empty();
 	    	document.getElementById('saveImg').appendChild(canvas);
