@@ -9,21 +9,19 @@
 // Yellow = Data IN to the printer
 // Green = Data OUT of the printer
 
-
-#define resetBtnPin 11
-#define printBtnPin 12
-#define upSwitchPin 10
-#define downSwitchPin 9 // Available but Not Used
-#define TX_PIN 6 // Arduino transmit  YELLOW WIRE  labeled RX on printer
 #define RX_PIN 5 // Arduino receive   GREEN WIRE   labeled TX on printer
-#define LEDPin 4
+#define TX_PIN 6 // Arduino transmit  YELLOW WIRE  labeled RX on printer
+#define switchPin 10
+#define resetBtn 11
+#define printBtn 12
+
 
 int resetBtnState = 0;
 int printBtnState = 0;
-int upSwitchState = 0;
+int switchState = 0;
 int prevResetBtnState = 0;
 int prevPrintBtnState = 0;
-int prevUpSwitchState = 0;
+int prevSwitchState = 0;
 
 SoftwareSerial mySerial(RX_PIN, TX_PIN); // Declare SoftwareSerial obj first
 Adafruit_Thermal printer(&mySerial);     // Pass addr to printer constructor
@@ -38,23 +36,17 @@ bool stringComplete = false;  // whether the string is complete
 
 
 void setup() {
-  // This line is for compatibility with the Adafruit IotP project pack,
-  // which uses pin 7 as a spare grounding point.  You only need this if
-  // wired up the same way (w/3-pin header into pins 5/6/7):
-  pinMode(7, OUTPUT); digitalWrite(7, LOW);
-
   // put your setup code here, to run once:
-  pinMode(resetBtnPin, INPUT_PULLUP);
-  pinMode(printBtnPin, INPUT_PULLUP);
-  pinMode(upSwitchPin, INPUT_PULLUP);
-  pinMode(downSwitchPin, INPUT_PULLUP);
-  pinMode(LEDPin, OUTPUT);
+  pinMode(resetBtn, INPUT_PULLUP);
+  pinMode(printBtn, INPUT_PULLUP);
+  pinMode(switchPin, INPUT_PULLUP);
   Serial.begin(19200); // USB Serial
   mySerial.begin(19200); // Printer Serial
   printer.begin();
 
   // reserve 200 bytes for the inputString:
   inputString.reserve(2000);
+  // initialize printer settings
   initPrinter();
 
   printer.doubleHeightOn();
@@ -66,43 +58,43 @@ void setup() {
   printer.println("wei-haowang.com/XD/selfPortrait/selfPortrait.html");
   printer.feed(6);
 
-  
+
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  resetBtnState = digitalRead(resetBtnPin);
-  printBtnState = digitalRead(printBtnPin);
-  upSwitchState = digitalRead(upSwitchPin);
+  resetBtnState = digitalRead(resetBtn);
+  printBtnState = digitalRead(printBtn);
+  switchState = digitalRead(switchPin);
 
   if (printBtnState == LOW) {
       Serial.println("S");
-      delay(3000);
+      delay(1000);
   }
 
 
   if (resetBtnState == LOW) {
       Serial.println('A');
-      delay(1000);
+      delay(500);
   }
 
-  if (upSwitchState != prevUpSwitchState) {
+  // Print switch state only once
+  if (switchState != prevSwitchState) {
     //Serial.println("The switch changed");
-    if (upSwitchState == LOW) {
-      Serial.println("D");
-      digitalWrite(LEDPin, HIGH);
-    } else if (upSwitchState == HIGH) {
+    if (switchState == LOW) {
       Serial.println("W");
-      digitalWrite(LEDPin, LOW);
+    } else if (switchState == HIGH) {
+      Serial.println("D");
     }
     delay(100);
   }
 
-  prevUpSwitchState = upSwitchState;
+  prevSwitchState = switchState;
 
   // print the string when a newline arrives:
   if (stringComplete) {
     printMessage();
+    Serial.println("String Complete");
     // clear the string:
     inputString = "";
     stringComplete = false;
@@ -135,7 +127,7 @@ void printMessage() {
   printer.doubleHeightOff();printer.println("Find your portrait on IG");
   printer.println("@selfportraitxd");
   printer.println("Make more portraits @");
-  printer.println("wei-haowang.com/XD/selfPortrait/selfPortrait.html");
+  printer.println("wei-haowang.com/XD/selfPortrait/selfPortraiting.html");
   printer.feed(6);
 }
 

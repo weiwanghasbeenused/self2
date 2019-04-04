@@ -31,7 +31,7 @@ function startRec() {
 			$("#warning_reset").stop().fadeOut(200);
 		}else if(status==4){
 			$("#warning_printing").stop().fadeOut(200);
-			
+
 			tempStatus = 5;
 		}
 		rec.start();
@@ -44,7 +44,7 @@ function startRec() {
 // pause speech
 $(document).jkey('w',function(){
 	pauseRec();
-	
+
 });
 
 function pauseRec() {
@@ -84,14 +84,13 @@ function printing() {
 		status = 4;
 	}else if(status == 4){
 			console.log("shot!");
-			savedText =[];
 			for(i = 0; i<savedText.length;i++){
 				printText+=savedText[i];
 			}
 			html2canvas(document.getElementById('container')).then(function(canvas) {
 	    	$("#saveImg").empty();
 	    	document.getElementById('saveImg').appendChild(canvas);
-	    	
+
 	    	var cid = "imgCanvas"+cv;
 	    	$("#saveImg canvas").attr("id",cid);
 	    	cid = document.getElementById(cid);
@@ -100,22 +99,24 @@ function printing() {
 	    	$.ajax({
 			  type: "POST",
 			  url: "script.php",
-			  data: { 
+			  data: {
 			     imgSent: dataUrl,
 			     imgName: ranNum+cv,
 			     subFolder:subFolder
 				  }
 				}).done(function(o) {
-				  console.log('saved'); 
-				});		    	
+				  console.log('saved');
+				});
 		    	console.log("cv = "+cv);
 		    	cv++;
 			});
+			//send message to arduino through serial. Need a carriage return to trigger print on arduino
+			socket.send(printText+"\n");
 		var tempP = $("#warning_printing").html();
 		var imgSavedurl = "https://wei-haowang.com/XD/selfPortrait/images/"+ranNum+cv+".png";
 		$("#warning_printing").html("<h2>Printing...</h2>");
 		$("#warning_printing").html("<h2>You can find your saved image at</br>"+imgSavedurl+"</h2>").stop().show();
-		
+
 	}
 }
 
