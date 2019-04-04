@@ -64,6 +64,12 @@ body {
 	background-color: rgba(0,0,0,0);
 	color:white;
 }
+#warning_printing{
+	top:0;
+	border:0px;
+	background-color: rgba(0,0,0,0);
+	color:white;
+}
 #warning_ending{
 	z-index: 98;
 }

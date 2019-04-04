@@ -16,12 +16,18 @@ var maxCurrent = 23;
 // var maxSteps = 26;
 var focusCounter = 0;
 
+var ranNum = parseInt(200*Math.random())+"_";
+console.log("kkk");
+console.log("ranNum = "+ranNum);
 var subFolder =  Math.random().toString(36).substr(2, 9);
 console.log("subFolder = "+subFolder);
 
 var current;
 // 0 = initial, 1 = recording, 2 = stoped, 3 = reset warning, 4 = print, 5 = maximum
 var status = 0; 
+
+var cv = 0;
+
 
 
 var prompts = ["Tell me"," who do you want to be,"," a lie,"," a secret,"," or anything you want to.","Press Right Arrow to start."];

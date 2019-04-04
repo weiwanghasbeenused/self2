@@ -89,27 +89,29 @@ function printing() {
 	    	document.getElementById('saveImg').appendChild(canvas);
 	    	
 	    	var cid = "imgCanvas"+cv;
-	    	$("#testImg canvas").attr("id",cid);
+	    	$("#saveImg canvas").attr("id",cid);
 	    	cid = document.getElementById(cid);
+	    	console.log(ranNum+" is so cool");
 	    	var dataUrl = cid.toDataURL();
 	    	$.ajax({
 			  type: "POST",
 			  url: "script.php",
 			  data: { 
 			     imgSent: dataUrl,
-			     imgName: cv,
+			     imgName: ranNum+cv,
 			     subFolder:subFolder
 				  }
 				}).done(function(o) {
 				  console.log('saved'); 
 				});		    	
 		    	console.log("cv = "+cv);
+		    	cv++;
 			});
 		var tempP = $("#warning_printing").html();
-		var imgSavedurl = "https://wei-haowang.com/XD/selfPortrait/images/img"+cv+".png";
+		var imgSavedurl = "https://wei-haowang.com/XD/selfPortrait/images/"+ranNum+cv+".png";
 		$("#warning_printing").html("<h2>Printing...</h2>");
-		$("#warning_printing").html("<h2>You can find your img at "+imgSavedurl+"</h2>").stop().show();
-		cv++;
+		$("#warning_printing").html("<h2>You can find your saved image at</br>"+imgSavedurl+"</h2>").stop().show();
+		
 	}
 }
 
